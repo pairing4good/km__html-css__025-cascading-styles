@@ -37,25 +37,13 @@ afterEach(async () => {
   await browser.close();
 });
 
-describe("the drop-down-content", () => {
-  it("should not be initially visible", async () => {
-    const value = await page.$eval('div[class="drop-down-content"]', (div) => {
-      let listStyle = window.getComputedStyle(div);
-      return listStyle.getPropertyValue("display");
+describe('the paragraph color purple', () => {
+  it('should override the text-area color', async () => {
+    const color = await page.$eval('p', (paragraph) => {
+      let style = window.getComputedStyle(paragraph);
+      return style.getPropertyValue('color');
     });
-    
-    expect(value).toBe("none");
-  });
-});
-
-describe("the drop-down-content", () => {
-  it("should be displayed when hovering over the drop-down", async () => {
-    const matches = await page.$eval('style', (style) => {
-      return style.innerHTML.match(
-        /\.drop-down:.*hover.*\.drop-down-content.*{[\s\S][^}]*display.*:.*block.*;/g
-      ).length;
-    });
-
-    expect(matches).toEqual(1);
+      
+    expect(color).toBe('rgb(128, 0, 128)');
   });
 });
